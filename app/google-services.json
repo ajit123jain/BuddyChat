@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "650377985414",
+    "firebase_url": "https://buddychat-b3c0d.firebaseio.com",
+    "project_id": "buddychat-b3c0d",
+    "storage_bucket": "buddychat-b3c0d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:650377985414:android:1db285a28d0b5384",
+        "android_client_info": {
+          "package_name": "com.chat.ajitrajeev.buddychat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "650377985414-ae1lrop4f3h88is288aa3lcv2cf7racp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.chat.ajitrajeev.buddychat",
+            "certificate_hash": "a862ff6589fc9799623770704f63be9282d0ee7f"
+          }
+        },
+        {
+          "client_id": "650377985414-j4a3j2ie1v5rdjcqtlse3ga4b6nrmdfj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAOj8RYqYYI6q1puL7tEKy9G9vIMZx7QVA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "650377985414-j4a3j2ie1v5rdjcqtlse3ga4b6nrmdfj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
