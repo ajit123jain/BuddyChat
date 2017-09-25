@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">BuddyChat</string>
+    <string name="welcome">Welcom to BuddyChat App</string>
 </resources>
