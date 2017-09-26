@@ -4,20 +4,36 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.chat.ajitrajeev.buddychat.StartActivity">
+    tools:context="com.chat.ajitrajeev.buddychat.StartActivity"
+    android:background="@color/colorPrimaryDark">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/welcome"
+        android:textSize="25sp"
+        android:textColor="@color/colorWhite"
         android:layout_centerInParent="true"
         android:id="@+id/welcome_text"/>
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/register"
+        android:text="@string/have_account"
         android:layout_below="@+id/welcome_text"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
+        android:textColor="@color/colorWhite"
+        android:background="@color/colorAccent"
+        android:id="@+id/already_have_btn"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/register"
+        android:layout_below="@+id/already_have_btn"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/colorPrimaryDark"
+        android:background="@color/colorWhite"
         android:id="@+id/start_reg_btn"/>
+
 
 </RelativeLayout>
