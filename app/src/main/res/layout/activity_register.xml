@@ -6,20 +6,31 @@
     android:layout_height="match_parent"
     tools:context="com.chat.ajitrajeev.buddychat.RegisterActivity">
 
-
+    <include
+        android:id="@+id/reg_toolbar"
+        layout="@layout/app_bar_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+    </include>
     <android.support.design.widget.TextInputLayout
         android:layout_width="368dp"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="40dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:id="@+id/reg_name">
+        android:layout_marginTop="200dp"
+        android:id="@+id/reg_name"
+        tools:layout_editor_absoluteX="8dp">
+
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
             android:hint="@string/name" />
     </android.support.design.widget.TextInputLayout>
     <android.support.design.widget.TextInputLayout
@@ -27,14 +38,17 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/reg_name"
         android:layout_marginTop="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:id="@+id/reg_email">
+        android:id="@+id/reg_email"
+        tools:layout_editor_absoluteX="8dp">
+
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
             android:hint="@string/email" />
     </android.support.design.widget.TextInputLayout>
     <android.support.design.widget.TextInputLayout
@@ -42,14 +56,17 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/reg_email"
         android:layout_marginTop="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:id="@+id/reg_password">
+        android:id="@+id/reg_password"
+        tools:layout_editor_absoluteX="8dp">
+
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
             android:hint="@string/password" />
     </android.support.design.widget.TextInputLayout>
 
@@ -59,7 +76,22 @@
         android:layout_height="wrap_content"
         android:text="@string/create_account"
         app:layout_constraintTop_toBottomOf="@+id/reg_password"
-        android:layout_marginTop="13dp"
-        android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent" />
+        android:layout_marginTop="52dp"
+        android:layout_marginRight="100dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:background="@color/colorAccent"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Create A New Account"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="150dp"
+        android:layout_marginStart="30dp"
+        android:textSize="20sp"
+        android:textColor="@color/colorBlack"/>
 </android.support.constraint.ConstraintLayout>

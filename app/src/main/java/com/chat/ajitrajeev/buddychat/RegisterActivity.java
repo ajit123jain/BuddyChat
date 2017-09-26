@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -18,6 +19,7 @@ public class RegisterActivity extends AppCompatActivity {
     private TextInputLayout mDisplayName,mEmail,mPassword;
     private Button mCreateButton;
     private FirebaseAuth mAuth;
+    private Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +30,10 @@ public class RegisterActivity extends AppCompatActivity {
         mEmail = (TextInputLayout)findViewById(R.id.reg_email);
         mPassword = (TextInputLayout)findViewById(R.id.reg_password);
         mCreateButton = (Button) findViewById(R.id.reg_create_btn);
-
+        mToolbar = (Toolbar)findViewById(R.id.reg_toolbar);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setTitle("Createn Account");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mAuth = FirebaseAuth.getInstance();
 
         mCreateButton.setOnClickListener(new View.OnClickListener() { //create Account button action
