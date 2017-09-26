@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -37,7 +38,7 @@ public class RegisterActivity extends AppCompatActivity {
         mCreateButton = (Button) findViewById(R.id.reg_create_btn);
         mToolbar = (Toolbar)findViewById(R.id.reg_toolbar);
         setSupportActionBar(mToolbar);
-        getSupportActionBar().setTitle("Createn Account");
+        getSupportActionBar().setTitle("Create Account");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mAuth = FirebaseAuth.getInstance();
         mRegProgress = new ProgressDialog(this);
@@ -45,20 +46,18 @@ public class RegisterActivity extends AppCompatActivity {
         mCreateButton.setOnClickListener(new View.OnClickListener() { //create Account button action
             @Override
             public void onClick(View view) {
-                String displayName = mDisplayName.getEditText().toString();
-                String email = mEmail.getEditText().toString();
-                String password = mPassword.getEditText().toString();
-                if (TextUtils.isEmpty(displayName)||TextUtils.isEmpty(email)|| TextUtils.isEmpty(password)){
-                    mRegProgress.setTitle("Registering User");
-                    mRegProgress.setMessage("Please wailt while we creating account ! ");
-                    mRegProgress.setCanceledOnTouchOutside(false);
-                    mRegProgress.show();
-                    register_user(displayName,email,password);
-                }
+                String displayName = mDisplayName.getEditText().getText().toString();
+                String email = mEmail.getEditText().getText().toString();
+                String password = mPassword.getEditText().getText().toString();
+                Log.d("Username ",displayName);
+                Log.d("Email ",email);
+                Log.d("Password",password);
+                register_user(email,password);
+                
             }
         });
     }
-    private void register_user(String name , String email ,String password){
+    private void register_user(String email ,String password){
           mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
               @Override
               public void onComplete(@NonNull Task<AuthResult> task) {

@@ -14,26 +14,32 @@
         android:textColor="@color/colorWhite"
         android:layout_centerInParent="true"
         android:id="@+id/welcome_text"/>
+
     <Button
+        android:id="@+id/already_have_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/have_account"
         android:layout_below="@+id/welcome_text"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
-        android:textColor="@color/colorWhite"
         android:background="@color/colorAccent"
-        android:id="@+id/already_have_btn"/>
+        android:paddingEnd="10dp"
+        android:paddingStart="10dp"
+        android:text="@string/have_account"
+        android:textColor="@color/colorWhite" />
+
     <Button
+        android:id="@+id/start_reg_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/register"
         android:layout_below="@+id/already_have_btn"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
-        android:textColor="@color/colorPrimaryDark"
         android:background="@color/colorWhite"
-        android:id="@+id/start_reg_btn"/>
+        android:paddingEnd="10dp"
+        android:paddingStart="10dp"
+        android:text="@string/register"
+        android:textColor="@color/colorPrimaryDark" />
 
 
 </RelativeLayout>
