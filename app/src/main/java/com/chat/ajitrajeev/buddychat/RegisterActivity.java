@@ -17,8 +17,13 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.w3c.dom.Text;
+
+import java.util.HashMap;
 
 public class RegisterActivity extends AppCompatActivity {
     private TextInputLayout mDisplayName,mEmail,mPassword;
@@ -26,6 +31,7 @@ public class RegisterActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private Toolbar mToolbar;
     private ProgressDialog mRegProgress;
+    private DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,30 +49,55 @@ public class RegisterActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         mRegProgress = new ProgressDialog(this);
 
+
         mCreateButton.setOnClickListener(new View.OnClickListener() { //create Account button action
             @Override
             public void onClick(View view) {
                 String displayName = mDisplayName.getEditText().getText().toString();
                 String email = mEmail.getEditText().getText().toString();
                 String password = mPassword.getEditText().getText().toString();
-                Log.d("Username ",displayName);
-                Log.d("Email ",email);
-                Log.d("Password",password);
-                register_user(email,password);
+                if (!TextUtils.isEmpty(displayName) || !TextUtils.isEmpty(email) || !TextUtils.isEmpty(password)){
+                    mRegProgress.setTitle("Registering User");
+                    mRegProgress.setMessage("Please wait while we are creating your account");
+                    mRegProgress.setCanceledOnTouchOutside(false);
+                    mRegProgress.show();
+                    register_user(displayName ,email,password);
+                }
+
+
                 
             }
         });
     }
-    private void register_user(String email ,String password){
+    private void register_user(final String display_name , String email , String password){
           mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
               @Override
               public void onComplete(@NonNull Task<AuthResult> task) {
                   if (task.isSuccessful()){
-                      mRegProgress.dismiss();
-                      Intent intent = new Intent(RegisterActivity.this,MainActivity.class);
-                      intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                      startActivity(intent);
-                      finish();
+                      FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
+                      String uid = current_user.getUid();
+                      mDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child(uid);
+                      HashMap<String,String> userMap = new HashMap<String, String>();
+                      userMap.put("name",display_name);
+                      userMap.put("status","Hi there , I am using Buddy Chat App.");
+                      userMap.put("image","default");
+                      userMap.put("thumb_image","default");
+                      mDatabase.setValue(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                          @Override
+                          public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()){
+                                mRegProgress.dismiss();
+                                Intent intent = new Intent(RegisterActivity.this,MainActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                startActivity(intent);
+                                finish();
+
+                            }
+                          }
+                      });
+
+
+
                   }
                   else {
                       mRegProgress.hide();
