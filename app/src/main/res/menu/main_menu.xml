@@ -4,6 +4,8 @@
     <item android:title="@string/logout"
         android:id="@+id/main_logout_btn"
         />
-    <item android:title="Account Settings" />
-    <item android:title="All Users" />
+    <item android:title="Account Settings"
+          android:id="@+id/main_settings_btn"/>
+    <item android:title="All Users"
+        android:id="@+id/main_alllUsers_btn"/>
 </menu>
