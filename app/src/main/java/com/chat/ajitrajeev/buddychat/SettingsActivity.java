@@ -1,7 +1,9 @@
 package com.chat.ajitrajeev.buddychat;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,6 +41,8 @@ public class SettingsActivity extends AppCompatActivity {
         mName = (TextView)findViewById(R.id.settings_displayName);
         mStatus = (TextView)findViewById(R.id.settings_status);
         circleImageView = (CircleImageView)findViewById(R.id.settings_image);
+        changeStatus = (Button)findViewById(R.id.settings_change_status_btn);
+        changeImage = (Button)findViewById(R.id.settings_change_image_btn);
         mUserDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -56,5 +60,14 @@ public class SettingsActivity extends AppCompatActivity {
 
             }
         });
+        changeStatus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent status_intent = new Intent(SettingsActivity.this,StatusActivity.class);
+                startActivity(status_intent);
+            }
+        });
+
     }
+
 }
