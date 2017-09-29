@@ -10,5 +10,10 @@
     <string name="login_account">Login</string>
     <string name="logout">Logout</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_chat_fragment">Hello chat fragment</string>
+    <string name="hello_friends_fragment">Hello friends fragment</string>
+    <string name="hello_requests_fragment">Hello requests fragment</string>
+
 
 </resources>
