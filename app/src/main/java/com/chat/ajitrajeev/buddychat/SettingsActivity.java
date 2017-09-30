@@ -23,6 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
@@ -69,11 +70,13 @@ public class SettingsActivity extends AppCompatActivity {
         mUserDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Toast.makeText(getApplicationContext(),dataSnapshot.toString(),Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(),dataSnapshot.toString(),Toast.LENGTH_LONG).show();
                 String name = dataSnapshot.child("name").getValue().toString();
                 String image = dataSnapshot.child("image").getValue().toString();
                 String status = dataSnapshot.child("status").getValue().toString();
                 String thumb_image = dataSnapshot.child("thumb_image").getValue().toString();
+                //Image Loading from theurl
+                Picasso.with(SettingsActivity.this).load(image).into(circleImageView);
                 mName.setText(name);
                 mStatus.setText(status);
             }
@@ -133,7 +136,7 @@ public class SettingsActivity extends AppCompatActivity {
                         if (task.isSuccessful()){
                             @SuppressWarnings("VisibleForTests")
                             String download_url = task.getResult().getDownloadUrl().toString();
-                            mUserDatabase.child("link").setValue(download_url).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            mUserDatabase.child("image").setValue(download_url).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                    if (task.isSuccessful()){
