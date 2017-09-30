@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.chat.ajitrajeev.buddychat.ProfileActivity">
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/profile_image"
+        android:src="@drawable/profile"
+        android:layout_margin="5dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/profile_displayName"
+        android:layout_below="@+id/profile_image"
+        android:hint="Narendra Modi"
+        android:textSize="16sp"
+        android:layout_centerHorizontal="true"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/profile_status"
+        android:layout_below="@+id/profile_displayName"
+        android:hint="Prime Minister Of India"
+        android:layout_centerHorizontal="true"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/profile_friendCount"
+        android:layout_below="@+id/profile_status"
+        android:hint="Friends 345 | Mutual Friends 5"
+        android:layout_marginTop="30dp"
+        android:layout_centerHorizontal="true"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/profile_friendCount"
+        android:background="@color/colorAccent"
+        android:text="Send Request"
+        android:padding="5dp"
+        android:id="@+id/profile_sendRequest"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/colorWhite"/>
+</RelativeLayout>
