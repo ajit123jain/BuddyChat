@@ -15,6 +15,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
 import org.w3c.dom.Text;
 
@@ -28,6 +30,9 @@ public class SettingsActivity extends AppCompatActivity {
     private CircleImageView circleImageView;
     private TextView mName,mStatus;
     private Button changeStatus,changeImage;
+
+    //image
+    private static final int GALLERY_PICK = 4 ;
 
 
 
@@ -63,11 +68,35 @@ public class SettingsActivity extends AppCompatActivity {
         changeStatus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String status_value = mStatus.getText().toString();
                 Intent status_intent = new Intent(SettingsActivity.this,StatusActivity.class);
+                status_intent.putExtra("status_value",status_value);
                 startActivity(status_intent);
+            }
+        });
+        changeImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+             /*   Intent galleryIntent = new Intent();
+                galleryIntent.setType("image/*");
+                galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(galleryIntent,"SELECT IMAGE"),GALLERY_PICK);
+                */
+                CropImage.activity()
+                        .setGuidelines(CropImageView.Guidelines.ON)
+                        .start(SettingsActivity.this);
+
             }
         });
 
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode==GALLERY_PICK && resultCode == RESULT_OK){
+            String imageUri = data.getDataString();
+            Toast.makeText(SettingsActivity.this,imageUri,Toast.LENGTH_LONG).show();
+        }
+    }
 }

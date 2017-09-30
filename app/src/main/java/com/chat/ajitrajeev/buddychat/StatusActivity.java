@@ -38,10 +38,13 @@ public class StatusActivity extends AppCompatActivity {
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle("Account Status ");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        String status_value = getIntent().getStringExtra("status_value");
+
         mSaveBtn = (Button)findViewById(R.id.status_save_btn);
         mStatus = (TextInputLayout)findViewById(R.id.updated_status);
         mCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
         String current_uid = mCurrentUser.getUid();
+        mStatus.getEditText().setText(status_value);
 
         mStatusDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child(current_uid);
         mSaveBtn.setOnClickListener(new View.OnClickListener() {
