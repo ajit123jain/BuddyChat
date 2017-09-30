@@ -6,13 +6,13 @@ package com.chat.ajitrajeev.buddychat;
 
 public class Users {
     public String name;
-    public String staus;
+    public String status;
     public String image;
 
 
-    public Users(String name, String staus, String image) {
+    public Users(String name, String status, String image) {
         this.name = name;
-        this.staus = staus;
+        this.status = status;
         this.image = image;
     }
     public Users(){
@@ -27,12 +27,12 @@ public class Users {
         this.name = name;
     }
 
-    public String getStaus() {
-        return staus;
+    public String getStatus() {
+        return status;
     }
 
-    public void setStaus(String staus) {
-        this.staus = staus;
+    public void setStatus(String staus) {
+        this.status = staus;
     }
 
     public String getImage() {

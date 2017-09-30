@@ -2,6 +2,7 @@ package com.chat.ajitrajeev.buddychat;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -29,10 +30,16 @@ import com.theartofdev.edmodo.cropper.CropImageView;
 
 import org.w3c.dom.Text;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import id.zelory.compressor.Compressor;
 
 public class SettingsActivity extends AppCompatActivity {
     private DatabaseReference mUserDatabase;
@@ -75,10 +82,14 @@ public class SettingsActivity extends AppCompatActivity {
                 String image = dataSnapshot.child("image").getValue().toString();
                 String status = dataSnapshot.child("status").getValue().toString();
                 String thumb_image = dataSnapshot.child("thumb_image").getValue().toString();
-                //Image Loading from theurl
-                Picasso.with(SettingsActivity.this).load(image).into(circleImageView);
                 mName.setText(name);
                 mStatus.setText(status);
+                if (!image.equals("default"))
+                {
+                    Picasso.with(SettingsActivity.this).load(image).placeholder(R.drawable.profile).into(circleImageView);
+                }
+
+
             }
 
             @Override
@@ -118,7 +129,7 @@ public class SettingsActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode==GALLERY_PICK && resultCode == RESULT_OK){
             Uri imageUri = data.getData();
-            CropImage.activity(imageUri).setAspectRatio(1,1).start(SettingsActivity.this);
+            CropImage.activity(imageUri).setAspectRatio(1,1).setMinCropWindowSize(500,500).start(SettingsActivity.this);
         }
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
@@ -129,22 +140,52 @@ public class SettingsActivity extends AppCompatActivity {
                 mProgressDialog.show();
                 Uri resultUri = result.getUri();
                 final String current_user_id = mCurrentUser.getUid();
+                File thumb_filepath = new File(resultUri.getPath());
+                Bitmap compressedImageBitmap = null;
+                try {
+                    compressedImageBitmap = new Compressor(SettingsActivity.this).setMaxWidth(200).setMaxWidth(200).setQuality(75).compressToBitmap(thumb_filepath);
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                compressedImageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                final byte[] thumb_byte = baos.toByteArray();
+
+
+
                 StorageReference filePath = mImageStorage.child("profile_images").child(current_user_id+".jpg");
+                final StorageReference thumbsPath = mImageStorage.child("profile_images").child("thumbs").child(current_user_id+".jpg");
+
                 filePath.putFile(resultUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                         if (task.isSuccessful()){
-                            @SuppressWarnings("VisibleForTests")
+                            @SuppressWarnings("VisibleForTests") final
                             String download_url = task.getResult().getDownloadUrl().toString();
-                            mUserDatabase.child("image").setValue(download_url).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            UploadTask uploadTask = thumbsPath.putBytes(thumb_byte);
+                            uploadTask.addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                                 @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()){
+                                public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task_thumbs) {
+                                    @SuppressWarnings("VisibleForTests")
+                                    String thumb_downloadUrl = task_thumbs.getResult().getDownloadUrl().toString();
+                                    if (task_thumbs.isSuccessful()){
+                                        Map update_hashmap = new HashMap();
+                                        update_hashmap.put("image",download_url);
+                                        update_hashmap.put("thumb_image",thumb_downloadUrl);
+                                        mUserDatabase.updateChildren(update_hashmap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if (task.isSuccessful()){
+                                                    mProgressDialog.dismiss();
+                                                    Toast.makeText(SettingsActivity.this,"Success fully uplaoded",Toast.LENGTH_LONG).show();
+                                                }
+                                            }
+                                        });
+                                    }
+                                    else {
+                                        Toast.makeText(SettingsActivity.this, "Error in Uploading thumbnail", Toast.LENGTH_SHORT).show();
                                         mProgressDialog.dismiss();
-                                        Toast.makeText(SettingsActivity.this,"Success fully uplaoded",Toast.LENGTH_LONG).show();
                                     }
                                 }
                             });
+
                         }
                         else {
                             Toast.makeText(SettingsActivity.this, "Error in Uploading", Toast.LENGTH_SHORT).show();
@@ -152,6 +193,10 @@ public class SettingsActivity extends AppCompatActivity {
                         }
                     }
                 });
+            } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 Exception error = result.getError();
             }
