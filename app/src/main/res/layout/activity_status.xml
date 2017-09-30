@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.chat.ajitrajeev.buddychat.StatusActivity">
+
+    <include
+        android:id="@+id/status_app_bar"
+        layout="@layout/app_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></include>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/status_app_bar"
+        android:layout_marginEnd="20dp"
+        android:id="@+id/updated_status"
+        android:layout_marginStart="20dp">
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Your Status "
+            />
+    </android.support.design.widget.TextInputLayout>
+
+    <Button
+        android:id="@+id/status_save_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/updated_status"
+        android:layout_below="@+id/updated_status"
+        android:layout_marginEnd="30dp"
+        android:layout_marginTop="40dp"
+        android:text="Saved Changes"
+        android:textColor="@color/colorWhite"
+        android:background="@color/colorAccent"
+        android:layout_margin="15dp"/>
+
+
+</RelativeLayout>
