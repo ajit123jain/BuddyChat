@@ -51,7 +51,7 @@ public class UserActivity extends AppCompatActivity {
             }
         };
         mUsersList.setAdapter(firebaseRecyclerAdapter);
-        Log.d("Tag","Adapter setted");
+
     }
 
     public static class UsersViewHolder extends RecyclerView.ViewHolder{
@@ -63,9 +63,7 @@ public class UserActivity extends AppCompatActivity {
         public void setName(String name){
             TextView userNameView = (TextView)mView.findViewById(R.id.user_single_name);
             userNameView.setText(name);
-
-            Log.d("Tag","Set Name method Called");
-        }
+          }
         public void setStatus(String status){
             TextView userStatusView = (TextView)mView.findViewById(R.id.user_single_status);
             userStatusView.setText(status);
