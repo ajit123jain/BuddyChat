@@ -45,4 +45,15 @@
         android:id="@+id/profile_sendRequest"
         android:layout_marginTop="20dp"
         android:textColor="@color/colorWhite"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/profile_sendRequest"
+        android:background="@color/colorAccent"
+        android:text="Decline Request"
+        android:padding="5dp"
+        android:id="@+id/profile_declineRequest"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/colorWhite"/>
 </RelativeLayout>
