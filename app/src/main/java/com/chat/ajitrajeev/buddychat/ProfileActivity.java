@@ -1,6 +1,7 @@
 package com.chat.ajitrajeev.buddychat;
 
 import android.app.ProgressDialog;
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -26,6 +27,7 @@ import org.w3c.dom.Text;
 
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.HashMap;
 
 public class ProfileActivity extends AppCompatActivity {
     private ImageView mProfileImage;
@@ -39,6 +41,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     private DatabaseReference mUserDatabaseReference;
     private DatabaseReference mFriendReqDatabaseReference;
+    private DatabaseReference mNotificationDatabase;
     private DatabaseReference mFriendDatabase;
     private FirebaseUser mCurrent_user;
     @Override
@@ -48,6 +51,7 @@ public class ProfileActivity extends AppCompatActivity {
         final String user_id = getIntent().getStringExtra("user_id");
         mUserDatabaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(user_id);
         mFriendReqDatabaseReference = FirebaseDatabase.getInstance().getReference().child("Friend_req");
+        mNotificationDatabase = FirebaseDatabase.getInstance().getReference().child("notifications");
         mFriendDatabase = FirebaseDatabase.getInstance().getReference().child("Friends");
         mProfileImage = (ImageView)findViewById(R.id.profile_image);
         mProfileName = (TextView)findViewById(R.id.profile_displayName);
@@ -154,13 +158,23 @@ public class ProfileActivity extends AppCompatActivity {
                                     setValue("received").addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
-                                    mProfileSendRequestBtn.setEnabled(true);
-                                    mCurrent_state = "req_sent";
-                                    mProfileSendRequestBtn.setText("Cancel Friend Request");
-                                    Toast.makeText(ProfileActivity.this, "Request Sucessfully Sent", Toast.LENGTH_SHORT).show();
+                                  //  mProfileSendRequestBtn.setEnabled(true);
+                                    HashMap<String,String> notificationData = new HashMap<String, String>();
+                                    notificationData.put("from",mCurrent_user.getUid());
+                                    notificationData.put("type","request");
 
-                                    mProfileDeclineRequestBtn.setVisibility(View.INVISIBLE);
-                                    mProfileSendRequestBtn.setEnabled(false);
+                                    mNotificationDatabase.child(user_id).push().setValue(notificationData).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            mCurrent_state = "req_sent";
+                                            mProfileSendRequestBtn.setText("Cancel Friend Request");
+                                            Toast.makeText(ProfileActivity.this, "Request Sucessfully Sent", Toast.LENGTH_SHORT).show();
+
+                                            mProfileDeclineRequestBtn.setVisibility(View.INVISIBLE);
+                                            mProfileSendRequestBtn.setEnabled(false);
+                                        }
+                                    });
+
                                 }
                             });
                         }

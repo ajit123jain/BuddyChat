@@ -1,0 +1,6 @@
+{
+  "projects": {
+    "staging": "buddychat-b3c0d",
+    "default": "buddychat-b3c0d"
+  }
+}
