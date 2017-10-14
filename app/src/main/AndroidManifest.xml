@@ -51,7 +51,8 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".ChatActivity"></activity>
+        <activity android:name=".ChatActivity"
+            android:parentActivityName=".MainActivity"></activity>
     </application>
 
 </manifest>

@@ -8,7 +8,7 @@
     <string name="password">Password</string>
     <string name="create_account">Create Account</string>
     <string name="login_account">Login</string>
-    <string name="logout">Logout</string>
+    <string name="log_out">Logout</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_chat_fragment">Hello chat fragment</string>
