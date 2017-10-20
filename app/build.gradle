@@ -6,7 +6,6 @@ android {
     defaultConfig {
         applicationId "com.chat.ajitrajeev.buddychat"
         minSdkVersion 19
-
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
