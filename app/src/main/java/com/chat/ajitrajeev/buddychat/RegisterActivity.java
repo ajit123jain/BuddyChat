@@ -64,9 +64,6 @@ public class RegisterActivity extends AppCompatActivity {
                     mRegProgress.show();
                     register_user(displayName ,email,password);
                 }
-
-
-                
             }
         });
     }
@@ -98,9 +95,6 @@ public class RegisterActivity extends AppCompatActivity {
                             }
                           }
                       });
-
-
-
                   }
                   else {
                       mRegProgress.hide();
